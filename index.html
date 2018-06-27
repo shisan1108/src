@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>我的第一个程序</title>
+      
+		
+	<script src="js/underscore.min.js" type="text/javascript" charset="utf-8"></script>
+	
+		<style type="text/css">
+			*{
+				margin:0 ;
+				padding:0;
+				list-style: none;
+			}
+			ul{
+				width: 100%;
+				position: relative;
+			}
+			li img{
+				width: 300px;
+				height: 300px;
+			}
+			li{
+				width:300px ;
+				height: 300px;
+				box-shadow:10px 10px 15px #888888;
+				position: absolute;
+				transition: all 1s;
+			}
+			
+			li.cun{
+				left:50% !important;
+				top:50% !important;
+				transform: rotate(0deg) translate(-50%,30%) scale(1.5,1.5) !important;
+				z-index: 99;
+			}
+			.no{
+					position: absolute;
+					top:450px ;
+					margin-left: 400px;
+			}
+			.c1{
+				width:300px ;
+				height: 50px;
+			}
+			.c2{
+				width:60px ;
+				height: 50px;
+			}
+		</style>
+    </head>
+    <body>
+				<div class="on"><ul id="pic"></ul></div>
+        <div class="no">
+            <input class="c1" type="text" id="ttsText" value="我爱我的姐姐彭彭彭">
+            <input class="c2" type="button" id="tts_btn" onclick="doTTS()" value="播放">
+        </div>
+        <div id="bdtts_div_id">
+            <audio id="tts_autio_id" autoplay="autoplay">
+                <source id="tts_source_id" src="http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=4&text=我的第一个程序" type="audio/mpeg">
+                <embed id="tts_embed_id" height="0" width="0" src="">
+            </audio>
+        </div>
+		  <script type="text/javascript"> 
+		        function doTTS(){
+		            var ttsDiv = document.getElementById('bdtts_div_id');
+		            var ttsAudio = document.getElementById('tts_autio_id');
+		            var ttsText = document.getElementById('ttsText').value;
+		            //参数spd为语音速度
+		
+		            ttsDiv.removeChild(ttsAudio);
+		            var au1 = '<audio id="tts_autio_id" autoplay="autoplay">';
+		            var sss = '<source id="tts_source_id" src="http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=3&text='+ttsText+'" type="audio/mpeg">';
+		            var eee = '<embed id="tts_embed_id" height="0" width="0" src="">';
+		            var au2 = '</audio>';
+		            ttsDiv.innerHTML = au1 + sss + eee + au2;
+		            
+		            ttsAudio = document.getElementById('tts_autio_id');
+		            
+		            ttsAudio.play();
+		        }
+		        </script>
+				
+
+				<script type="text/javascript">
+					window.onload=function(){
+						var ul = document.querySelector('#pic')
+						for (var i = 0; i <10; i++) {
+							var li = document.createElement('li')
+							ul.appendChild(li)
+							var img = document.createElement('img')
+							img.src="img/cq/"+(i+1)+".jpg"
+							li.appendChild(img)
+						}
+						var allli=ul.children
+						// console.log(allli);
+						var  screW= document.documentElement.clientWidth -300
+						var  screh= document.documentElement.clientHeight -300
+						for (var j = 0; j < allli.length; j++) {
+							var li = allli[j]
+							li.style.left = _.random(0,screW)+'px'
+							li.style.top = _.random(0,100)+'px'
+							li.style.transform='rotate('+_.random(0,300)+'deg)'
+							
+							li.onclick=function () {
+								for (var i = 0; i < allli.length; i++) {
+									allli[i].className=''
+									// console.log(allli[i]);
+								}
+								this.className='cun'
+								console.log(this);
+							}
+						}
+						
+					}
+				</script>
+    </body>
+</html>
